@@ -85,6 +85,7 @@ object OrderApp {
     val OrderInfoDStream: DStream[OrderInfo] = orderInfoKafkaOffsetsDStream.map(
       record => JSON.parseObject(record.value(), classOf[OrderInfo])
     )
+
     val orderDetailDStream: DStream[OrderDetail] = orderDetailKafkaOffsetsDStream.map(
 
       record => JSON.parseObject(record.value(), classOf[OrderDetail])
@@ -182,8 +183,6 @@ object OrderApp {
     //实际情况是数据可能在同一批次，也可能不在同一个批次
     val orderJoinDStream: DStream[(Long, (Option[OrderInfo], Option[OrderDetail]))] =
     orderInfoKVDStream.fullOuterJoin( OrderDetailKVDStream)
-
-
 //    orderJoinDStream.print(20)
 
 

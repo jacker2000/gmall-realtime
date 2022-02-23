@@ -133,7 +133,8 @@ object DauApp {
             1.如果要想拿到要处理后结果的值(处理后的值用变量接收,在再下一个DSteam接着用)，则用转换
             2.如果只是打印，输出，不想要处理后的值,则用行动算子
      */
-    val redisFilterDStream: DStream[PageLog] = filterDStream.mapPartitions( //每个批次 每个分区数据进行处理
+    val redisFilterDStream: DStream[PageLog] = filterDStream.mapPartitions(
+      //每个批次 每个分区数据进行处理
       //将待处理的数据以分区为单位发送到计算节点进行处理，这里的处理是指可以进行任意的处理，哪怕是过滤数据。
       pageLogIter => {
         // todo 注意：iter 只遍历一次， 所以需要把iter转为List
@@ -269,7 +270,7 @@ object DauApp {
 
   /**
    * todo
-   *  状态还原
+   * 状态还原
    *    1. 如果es有数据，redis没写成功，则需要把es的数据重新写入redis，防止redis没有写入成功，数据不一致的情况
    *    2. 如果es没有数据，redis有数据，则删除redis数据,重新写es和redis, 最后保证redis和es的数据是一致的
    */
@@ -280,7 +281,7 @@ object DauApp {
     val field: String = "mid"
     val midList: List[String] = MyESUtils.searchField(indexName, field)
     val daukey = s"DAU:${localDate}"
-//    val daukey = "DAU:2022-02-01"
+    //    val daukey = "DAU:2022-02-01"
     val jedis: Jedis = MyRedisUtils.getJedis()
     //删除redis数据
     jedis.del(daukey)
@@ -291,7 +292,7 @@ object DauApp {
       //通过redis做批量写入
       val pipeline: Pipeline = jedis.pipelined()
       for (mid <- midList) {
-        pipeline.sadd(daukey,mid)
+        pipeline.sadd(daukey, mid)
       }
       pipeline.sync()
       jedis.expire(daukey, DateUtils.getSecondsNextEarlyMorning.intValue())
