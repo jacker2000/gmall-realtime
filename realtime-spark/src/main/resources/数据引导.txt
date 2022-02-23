@@ -1,0 +1,4 @@
+
+数据初始化,需要引导 base_province表数据
+bin/maxwell-bootstrap  --config config.properties --database gmall --table base_province
+bin/maxwell-bootstrap  --config config.properties --database gmall --table user_info
