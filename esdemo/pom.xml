@@ -29,6 +29,11 @@
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
             <version>7.8.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
+        </dependency>
         <!-- elasticsearch 依赖 2.x 的 log4j -->
 <!--        <dependency>-->
 <!--            <groupId>org.apache.logging.log4j</groupId>-->
@@ -45,7 +50,15 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.9</version>
         </dependency>
-<!--        <dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.json4s/json4s-jackson -->
+        <dependency>
+            <groupId>org.json4s</groupId>
+            <artifactId>json4s-jackson_2.12</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
+
+        <!--        <dependency>-->
 <!--            <groupId>org.apache.httpcomponents</groupId>-->
 <!--            <artifactId>httpclient</artifactId>-->
 <!--            <version>4.5.10</version>-->
